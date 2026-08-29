@@ -12,24 +12,23 @@
 
 <style>
   :root{
-    --paper:#EDF1F2;
-    --ink:#12242E;
-    --muted:#5D6E78;
-    --rule:#C6D1D7;
-    --signal:#00707A;
-    --signal-soft:rgba(0,112,122,.12);
+    --paper:#EBEEEE;      /* Imperial light grey */
+    --ink:#002147;        /* Imperial navy */
+    --muted:#5A6E82;
+    --rule:#C2CCD3;
+    --blue:#0000C5;       /* Imperial blue */
+    --blue-soft:rgba(0,0,197,.10);
   }
 
   *{box-sizing:border-box;}
-
   html{-webkit-text-size-adjust:100%;}
 
   body{
     margin:0;
     background-color:var(--paper);
     background-image:
-      linear-gradient(rgba(18,36,46,.045) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(18,36,46,.045) 1px, transparent 1px);
+      linear-gradient(rgba(0,33,71,.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,33,71,.05) 1px, transparent 1px);
     background-size:22px 22px;
     color:var(--ink);
     font-family:"IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -38,11 +37,7 @@
     -webkit-font-smoothing:antialiased;
   }
 
-  .wrap{
-    max-width:720px;
-    margin:0 auto;
-    padding:36px 20px 72px;
-  }
+  .wrap{max-width:700px; margin:0 auto; padding:36px 20px 72px;}
 
   /* ---------- masthead ---------- */
 
@@ -51,16 +46,17 @@
     font-size:11px;
     letter-spacing:.16em;
     text-transform:uppercase;
-    color:var(--signal);
+    color:var(--muted);
     margin:0 0 14px;
   }
 
   h1{
     font-family:"IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
     font-weight:700;
-    font-size:clamp(30px, 8vw, 46px);
+    font-size:clamp(30px, 7.5vw, 44px);
     line-height:1.08;
     letter-spacing:-.015em;
+    color:var(--blue);
     margin:0 0 12px;
     text-wrap:balance;
   }
@@ -69,7 +65,7 @@
     font-size:clamp(15px, 4vw, 18px);
     color:var(--muted);
     margin:0 0 30px;
-    max-width:46ch;
+    max-width:44ch;
   }
 
   /* ---------- video ---------- */
@@ -77,19 +73,13 @@
   figure{margin:0 0 34px;}
 
   .screen{
-    position:relative;
-    border:1px solid var(--rule);
+    border:1px solid var(--ink);
     background:#fff;
-    border-radius:3px;
+    border-radius:2px;
     overflow:hidden;
   }
 
-  video{
-    display:block;
-    width:100%;
-    height:auto;
-    background:#fff;
-  }
+  video{display:block; width:100%; height:auto; background:#fff;}
 
   figcaption{
     display:flex;
@@ -99,24 +89,17 @@
     font-size:11.5px;
     color:var(--muted);
     padding-top:10px;
-    line-height:1.45;
+    line-height:1.5;
   }
 
-  figcaption b{
-    color:var(--signal);
-    font-weight:500;
-    flex:none;
-  }
+  figcaption b{color:var(--blue); font-weight:500; flex:none;}
 
-  /* ---------- stroke gauge ---------- */
+  /* ---------- sections ---------- */
 
-  .gauge{
-    margin:0 0 34px;
-    padding-top:26px;
-    border-top:1px solid var(--rule);
-  }
+  section{padding-top:26px; border-top:1px solid var(--rule); margin-bottom:34px;}
+  section:last-of-type{margin-bottom:0;}
 
-  .gauge h2, .notes h2{
+  section h2{
     font-family:"IBM Plex Mono", ui-monospace, monospace;
     font-size:11px;
     font-weight:500;
@@ -125,6 +108,8 @@
     color:var(--muted);
     margin:0 0 18px;
   }
+
+  /* ---------- stroke gauge ---------- */
 
   .bar{
     display:flex;
@@ -140,82 +125,71 @@
     justify-content:center;
     font-family:"IBM Plex Mono", ui-monospace, monospace;
     font-size:11px;
-    letter-spacing:.04em;
+    letter-spacing:.03em;
     white-space:nowrap;
+    overflow:hidden;
   }
 
   .seg.idle{
     flex:0 0 77.4%;
     background:repeating-linear-gradient(
-      -45deg, transparent 0 5px, rgba(18,36,46,.09) 5px 10px);
+      -45deg, transparent 0 5px, rgba(0,33,71,.10) 5px 10px);
     color:var(--muted);
   }
 
   .seg.work{
     flex:0 0 22.6%;
-    background:var(--signal);
+    background:var(--blue);
     color:#fff;
     border-left:1px solid var(--ink);
   }
 
   .ticks{
-    display:flex;
-    justify-content:space-between;
+    position:relative;
+    height:16px;
+    margin-top:6px;
     font-family:"IBM Plex Mono", ui-monospace, monospace;
     font-size:11px;
     color:var(--muted);
-    margin-top:7px;
   }
 
-  .ticks span:nth-child(2){
-    margin-left:auto;
-    margin-right:-2.5em;
-  }
+  .ticks span{position:absolute; top:0; white-space:nowrap;}
+  .ticks .t1{left:0;}
+  .ticks .t2{left:77.4%; transform:translateX(-50%); color:var(--blue);}
+  .ticks .t3{right:0;}
 
-  .gauge p{
-    font-size:14px;
+  section p{
+    font-size:14.5px;
     color:var(--muted);
-    margin:16px 0 0;
+    margin:18px 0 0;
     max-width:52ch;
   }
 
-  .gauge em{
-    color:var(--ink);
-    font-style:normal;
-    font-weight:500;
-  }
+  section p em{color:var(--ink); font-style:normal; font-weight:500;}
 
   /* ---------- notes ---------- */
-
-  .notes{
-    padding-top:26px;
-    border-top:1px solid var(--rule);
-  }
 
   dl{margin:0;}
 
   dt{
     font-family:"IBM Plex Mono", ui-monospace, monospace;
     font-size:11px;
-    letter-spacing:.12em;
+    letter-spacing:.11em;
     text-transform:uppercase;
-    color:var(--signal);
+    color:var(--blue);
     margin-bottom:5px;
   }
 
-  dd{
-    margin:0 0 22px;
-    max-width:56ch;
-  }
-
+  dd{margin:0 0 22px; max-width:56ch;}
   dd:last-of-type{margin-bottom:0;}
+  dd em{color:var(--ink); font-style:normal; font-weight:500;}
 
-  dd .figure-inline{
+  .val{
     font-family:"IBM Plex Mono", ui-monospace, monospace;
-    background:var(--signal-soft);
+    background:var(--blue-soft);
     padding:1px 5px;
     border-radius:2px;
-    font-size:.92em;
+    font-size:.9em;
   }
 
   /* ---------- footer ---------- */
@@ -230,10 +204,11 @@
     line-height:1.9;
   }
 
-  footer a{color:var(--signal);}
+  footer strong{color:var(--ink); font-weight:500;}
+  footer a{color:var(--blue);}
 
   a:focus-visible, video:focus-visible{
-    outline:2px solid var(--signal);
+    outline:2px solid var(--blue);
     outline-offset:3px;
   }
 
@@ -266,7 +241,7 @@
     </figcaption>
   </figure>
 
-  <section class="gauge">
+  <section>
     <h2>Where the stroke goes</h2>
 
     <div class="bar">
@@ -274,20 +249,20 @@
       <div class="seg work">work · 52 mm</div>
     </div>
     <div class="ticks">
-      <span>Ø282</span>
-      <span>Ø104</span>
-      <span>Ø52</span>
+      <span class="t1">Ø282</span>
+      <span class="t2">Ø104</span>
+      <span class="t3">Ø52</span>
     </div>
 
-    <p>The dome closes 5.4× in diameter, but it only touches the bladder at Ø104. <em>Just 23% of the fold does useful work</em> — so the device should start pre-folded, and the motor only has to drive the last stretch.</p>
+    <p>The dome closes 5.4× in diameter, but it only reaches the bladder at Ø104. <em>Just 23% of the fold does useful work</em> — so the device should start pre-folded, and the motor only has to drive the last stretch.</p>
   </section>
 
-  <section class="notes">
+  <section>
     <h2>Three things the model shows</h2>
     <dl>
 
       <dt>Fluid is a single equation, not a mesh</dt>
-      <dd>Inside the bladder, dynamic pressure is <span class="figure-inline">10⁷×</span> smaller than the static pressure we care about. All the resistance sits at the outlet, so the water becomes one ODE — <span class="figure-inline">dV/dt = Q<sub>in</sub> − Q<sub>out</sub>(p)</span> — coupled to the deforming wall. That buys the pressure, flow and residual-volume curves for almost nothing.</dd>
+      <dd>Inside the bladder, dynamic pressure is <span class="val">10⁷×</span> smaller than the static pressure we care about. All the resistance sits at the outlet, so the water becomes one ODE — <span class="val">dV/dt = Q<sub>in</sub> − Q<sub>out</sub>(p)</span> — coupled to the deforming wall. That buys the pressure, flow and residual-volume curves for almost nothing.</dd>
 
       <dt>The phantom checks out against theory</dt>
       <dd>A Neo-Hookean silicone shell, 523.6 mL at rest. Across the inflation range the finite-element pressure tracks the thin-wall analytical solution to within 4.5%, and the agreement <em>improves</em> as the shell thins — which is exactly what the theory predicts it should do.</dd>
@@ -299,9 +274,10 @@
   </section>
 
   <footer>
-    Your Name · Your Department, Your University<br>
-    Supervisor: Name · 2026<br>
-    <a href="mailto:you@example.ac.uk">you@example.ac.uk</a>
+    <strong>Pengxiao Yang</strong> · Control and Optimisation<br>
+    Department of Electrical and Electronic Engineering, Imperial College London<br>
+    Supervised by Prof Eric Yeatman and Dr Ranan Dasgupta · 2026<br>
+    <a href="mailto:pengxiao.yang25@imperial.ac.uk">pengxiao.yang25@imperial.ac.uk</a>
   </footer>
 
 </div>
