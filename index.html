@@ -121,6 +121,7 @@
   }
 
   .cap b{color:var(--blue); font-weight:500; flex:none;}
+  .cap em{color:var(--ink); font-style:normal; font-weight:500; display:block;}
 
   /* ---------- sections ---------- */
 
@@ -137,88 +138,6 @@
     margin:0 0 18px;
   }
 
-  /* ---------- stroke gauge ---------- */
-
-  .bar{
-    display:flex;
-    height:34px;
-    border:1px solid var(--ink);
-    border-radius:2px;
-    overflow:hidden;
-  }
-
-  .seg{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-family:var(--mono);
-    font-size:11px;
-    letter-spacing:.03em;
-    white-space:nowrap;
-    overflow:hidden;
-  }
-
-  .seg.idle{
-    flex:0 0 77.4%;
-    background:repeating-linear-gradient(
-      -45deg, transparent 0 5px, rgba(0,33,71,.10) 5px 10px);
-    color:var(--muted);
-  }
-
-  .seg.work{
-    flex:0 0 22.6%;
-    background:var(--blue);
-    color:#fff;
-    border-left:1px solid var(--ink);
-  }
-
-  .ticks{
-    position:relative;
-    height:16px;
-    margin-top:6px;
-    font-family:var(--mono);
-    font-size:11px;
-    color:var(--muted);
-  }
-
-  .ticks span{position:absolute; top:0; white-space:nowrap;}
-  .ticks .t1{left:0;}
-  .ticks .t2{left:77.4%; transform:translateX(-50%); color:var(--blue);}
-  .ticks .t3{right:0;}
-
-  section p{
-    color:var(--muted);
-    margin:18px 0 0;
-    max-width:50ch;
-  }
-
-  section p em{color:var(--ink); font-style:normal; font-weight:700;}
-
-  /* ---------- notes ---------- */
-
-  dl{margin:0;}
-
-  dt{
-    font-family:var(--mono);
-    font-size:11px;
-    letter-spacing:.11em;
-    text-transform:uppercase;
-    color:var(--blue);
-    margin-bottom:6px;
-  }
-
-  dd{margin:0 0 24px; max-width:54ch;}
-  dd:last-of-type{margin-bottom:0;}
-  dd em{color:var(--ink); font-style:normal; font-weight:700;}
-
-  .val{
-    font-family:var(--mono);
-    background:var(--blue-soft);
-    padding:1px 5px;
-    border-radius:2px;
-    font-size:.82em;
-  }
-
   /* ---------- acknowledgements ---------- */
 
   .ack p{
@@ -229,6 +148,17 @@
   }
 
   .ack p:last-child{margin-bottom:0;}
+
+  .scope{
+    margin:40px 0 0;
+    padding:14px 16px;
+    border-left:2px solid var(--blue);
+    background:var(--blue-soft);
+    font-size:14px;
+    font-style:italic;
+    color:var(--muted);
+    max-width:56ch;
+  }
 
   /* ---------- footer ---------- */
 
@@ -267,17 +197,17 @@
 <body>
 <div class="wrap">
 
-  <p class="eyebrow">ALBA · Assistive bladder actuator</p>
+  <p class="eyebrow">ALBA · Towards MRI-compatible bladder assistance</p>
 
-  <h1>Squeezing a bladder with a folding dome</h1>
+  <h1>Simulating ALBA contraction and bladder interaction</h1>
 
-  <p class="standfirst">A cable-driven Hoberman linkage contracts around a silicone bladder phantom to assist voiding. Here is what the simulation does.</p>
+  <p class="standfirst">Three animations explore the mechanics at different scales — from contraction of the Hoberman-inspired auxetic dome to deformation of the silicone phantom and its local interaction with an actuation button.</p>
 
   <div class="player">
     <div class="tabs" role="tablist" aria-label="Simulations">
-      <button class="tab is-active" role="tab" aria-selected="true"  data-i="0">1 · Dome</button>
+      <button class="tab is-active" role="tab" aria-selected="true"  data-i="0">1 · Mechanism</button>
       <button class="tab"           role="tab" aria-selected="false" data-i="1">2 · Phantom</button>
-      <button class="tab"           role="tab" aria-selected="false" data-i="2">3 · Dome + phantom</button>
+      <button class="tab"           role="tab" aria-selected="false" data-i="2">3 · Button</button>
     </div>
 
     <div class="screen">
@@ -286,38 +216,6 @@
 
     <p class="cap"><b id="capNo">FIG 1</b><span id="capTxt"></span></p>
   </div>
-
-  <section>
-    <h2>Where the stroke goes</h2>
-
-    <div class="bar">
-      <div class="seg idle">free travel · 178 mm</div>
-      <div class="seg work">work · 52 mm</div>
-    </div>
-    <div class="ticks">
-      <span class="t1">Ø282</span>
-      <span class="t2">Ø104</span>
-      <span class="t3">Ø52</span>
-    </div>
-
-    <p>The dome closes 5.4× in diameter, but it only reaches the bladder at Ø104. <em>Just 23% of the fold does useful work</em> — so the device should start pre-folded, and the motor only has to drive the last stretch.</p>
-  </section>
-
-  <section>
-    <h2>Three things the model shows</h2>
-    <dl>
-
-      <dt>Fluid is a single equation, not a mesh</dt>
-      <dd>Inside the bladder, dynamic pressure is <span class="val">10⁷×</span> smaller than the static pressure we care about. All the resistance sits at the outlet, so the water becomes one ODE — <span class="val">dV/dt = Q<sub>in</sub> − Q<sub>out</sub>(p)</span> — coupled to the deforming wall. That buys the pressure, flow and residual-volume curves for almost nothing.</dd>
-
-      <dt>The phantom checks out against theory</dt>
-      <dd>A Neo-Hookean silicone shell, 523.6 mL at rest. Across the inflation range the finite-element pressure tracks the thin-wall analytical solution to within 4.5%, and the agreement <em>improves</em> as the shell thins — which is exactly what the theory predicts it should do.</dd>
-
-      <dt>Drive it by displacement, read the pressure</dt>
-      <dd>Cable tension in the linkage is dominated by an uncalibrated joint stiffness, so it can't size a motor on its own. Instead the model sweeps how far the pads press in and reads the pressure that comes back — a curve that can be measured on the bench rig and compared directly.</dd>
-
-    </dl>
-  </section>
 
   <section class="ack">
     <h2>Acknowledgements</h2>
@@ -328,25 +226,30 @@
     <p>Finally, the Department of Electrical and Electronic Engineering at Imperial College London and the Imperial College Advanced Hackspace are acknowledged for providing access to equipment, facilities and workspace used in the development and benchtop evaluation of this project, with particular thanks to Paul Norman for arranging bench space in the Level 5 Project Laboratory, and to Mohamed Halimi and Alfie Williams of the Electronics Support Group for 3D printing support.</p>
   </section>
 
+  <p class="scope">These animations illustrate the modelling approach; quantitative results and experimental validation are presented separately in the MSc poster.</p>
+
   <footer>
     <p class="byline">Pengxiao Yang</p>
     Control and Optimisation · Department of Electrical and Electronic Engineering<br>
     Imperial College London<br>
     Supervised by Prof Eric Yeatman and Dr Ranan Dasgupta · 2026<br>
     <a href="mailto:pengxiao.yang25@imperial.ac.uk">pengxiao.yang25@imperial.ac.uk</a><br>
-    <a href="CV-Pengxiao-2026.pdf">Curriculum vitae</a> · <a href="https://www.linkedin.com/in/pengxiao-yang-a34287382/">LinkedIn</a>
+    <a href="cv.pdf">Curriculum vitae</a> · <a href="https://www.linkedin.com/in/pengxiao-yang-a34287382/">LinkedIn</a>
   </footer>
 
 </div>
 
 <script>
   var CLIPS = [
-    { src:"anim-dome.mp4", poster:"poster-dome.png",
-      cap:"Motion study of the Hoberman-inspired dome — the scissor linkage folding through its full range." },
+    { src:"anim-mechanism.mp4", poster:"poster-mechanism.png",
+      title:"Mechanism-scale contraction",
+      cap:"Simulated contraction of the cable-driven, Hoberman-inspired auxetic dome." },
     { src:"anim-phantom.mp4", poster:"poster-phantom.png",
-      cap:"Finite-element model of the silicone phantom emptying under an applied cavity pressure." },
-    { src:"anim-dome-phantom.mp4", poster:"poster-dome-phantom.png",
-      cap:"The dome's buttons pressing into the phantom wall." }
+      title:"Phantom surface deformation",
+      cap:"Simulated deformation of a representative patch of the silicone bladder phantom." },
+    { src:"anim-button.mp4", poster:"poster-button.png",
+      title:"Local button interaction",
+      cap:"Simulated deformation of the phantom patch under prescribed displacement of an actuation button." }
   ];
 
   var vid = document.getElementById("vid"),
@@ -359,7 +262,7 @@
     vid.src = CLIPS[i].src;
     vid.load();
     capNo.textContent = "FIG " + (i + 1);
-    capTxt.textContent = CLIPS[i].cap;
+    capTxt.innerHTML = "<em>" + CLIPS[i].title + "</em> " + CLIPS[i].cap;
     tabs.forEach(function(t, n){
       var on = n === i;
       t.classList.toggle("is-active", on);
