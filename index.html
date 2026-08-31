@@ -198,13 +198,14 @@
 
   <h1>Simulating ALBA contraction and bladder interaction</h1>
 
-  <p class="standfirst">Three animations explore the mechanics at different scales — from contraction of the Hoberman-inspired auxetic dome to deformation of the silicone phantom and its local interaction with an actuation button.</p>
+  <p class="standfirst">Four animations explore the mechanics at different scales — from contraction of the Hoberman-inspired auxetic dome to deformation of the silicone phantom and its local interaction with an actuation button.</p>
 
   <div class="player">
     <div class="tabs" role="tablist" aria-label="Simulations">
-      <button class="tab is-active" role="tab" aria-selected="true"  data-i="0">1 · Mechanism</button>
-      <button class="tab"           role="tab" aria-selected="false" data-i="1">2 · Phantom</button>
-      <button class="tab"           role="tab" aria-selected="false" data-i="2">3 · Button</button>
+      <button class="tab is-active" role="tab" aria-selected="true"  data-i="0">1 · Kinematics</button>
+      <button class="tab"           role="tab" aria-selected="false" data-i="1">2 · Mechanism</button>
+      <button class="tab"           role="tab" aria-selected="false" data-i="2">3 · Phantom</button>
+      <button class="tab"           role="tab" aria-selected="false" data-i="3">4 · Button</button>
     </div>
 
     <div class="screen">
@@ -238,9 +239,12 @@
 
 <script>
   var CLIPS = [
+    { src:"anim-kinematics.mp4", poster:"poster-kinematics.png",
+      title:"Kinematic motion study",
+      cap:"Idealised motion study of the cable-driven, Hoberman-inspired auxetic dome, with rigid links and clearance-free joints." },
     { src:"anim-mechanism.mp4", poster:"poster-mechanism.png",
       title:"Mechanism-scale contraction",
-      cap:"Simulated contraction of the cable-driven, Hoberman-inspired auxetic dome." },
+      cap:"Multibody simulation of the same dome contracting under cable actuation, with joint elasticity included." },
     { src:"anim-phantom.mp4", poster:"poster-phantom.png",
       title:"Phantom surface deformation",
       cap:"Simulated deformation of a representative patch of the silicone bladder phantom." },
